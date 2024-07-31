@@ -1,10 +1,6 @@
 def valid_ip_format?(ip_address)
   ip_format_regex = /\A(?:\d{1,3}\.){3}\d{1,3}\z/
-  if ip_address.match?(ip_format_regex)
-    true
-  else
-    false
-  end
+  ip_address.match?(ip_format_regex)
 end
 
 def valid_ip_address?(octets)
