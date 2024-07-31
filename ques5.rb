@@ -1,22 +1,23 @@
-
-def valid_ip_address?(ip_address)
-  ip_address.strip!
-
-  octets = ip_address.split('.')
-
-  return false unless octets.length == 4
-
-  octets.all? do |octet|
-    integer_octet = octet.to_i
-    integer_octet.between?(0, 255) && octet == integer_octet.to_s
+def valid_ip_format?(ip_address)
+  ip_format_regex = /\A(?:\d{1,3}\.){3}\d{1,3}\z/
+  if ip_address.match?(ip_format_regex)
+    true
+  else
+    false
   end
 end
 
-def find_ip_class(ip_address)
-  return 'Invalid IP address' unless valid_ip_address?(ip_address)
+def valid_ip_address?(octets)
+  octets.all? do |octet|
+    integer_octet = octet.to_i
+    integer_octet.between?(0, 255) 
+  end
+end
 
-  split_address = ip_address.split('.').map { |s| s.to_i }
-  first_octet = split_address[0]
+def find_ip_class(octets)
+  return 'Invalid IP address' unless valid_ip_address?(octets)
+
+  first_octet = octets[0].to_i
 
   case first_octet
   when 1..126
@@ -29,9 +30,16 @@ def find_ip_class(ip_address)
     'Class D'
   when 240..255
     'Class E'
+  else
+    'Invalid IP address'
   end
 end
 
 puts 'Enter an IP address:'
 ip_address = gets.chomp
-puts find_ip_class(ip_address)
+if valid_ip_format?(ip_address)
+  split_address = ip_address.split('.')
+  puts find_ip_class(split_address)
+else
+  puts 'Invalid IP address'
+end
