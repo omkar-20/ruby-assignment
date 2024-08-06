@@ -8,13 +8,11 @@ end
 def display_word(word, correct_guesses)
   word.chars.map { |char| correct_guesses.include?(char) ? char : '_' }.join(' ')
 end
- 
 
 def check_game_result(word, remaining_count)
-  
-  return "You guessed the word '#{word}' correctly" if remaining_count == 0 
-  
-  return "Better luck next time, the word was '#{word}'"
+  return "You guessed the word '#{word}' correctly" if remaining_count.zero?
+
+  "Better luck next time, the word was '#{word}'"
 end
 
 def update_guesses(word, guess_letter, correct_guesses, incorrect_guesses, remaining_count)
@@ -37,11 +35,11 @@ def already_guess?(guess_letter, correct_guesses, incorrect_guesses)
 end
 
 def process_guess(word, guess_letter, correct_guesses, incorrect_guesses, remaining_count)
-  
-  return ['Invalid Input', remaining_count] if invalid_guess?(guess_letter) 
-  
-  return ['You already guessed the letter', remaining_count] if already_guess?(guess_letter, correct_guesses, incorrect_guesses) 
-  
+  return ['Invalid Input', remaining_count] if invalid_guess?(guess_letter)
+
+  return ['You already guessed the letter', remaining_count] if already_guess?(guess_letter, correct_guesses,
+                                                                               incorrect_guesses)
+
   remaining_count = update_guesses(word, guess_letter, correct_guesses, incorrect_guesses, remaining_count)
   [nil, remaining_count]
 end
@@ -54,20 +52,19 @@ def play_hangman
   remaining_count = word.chars.uniq.size
   puts 'Welcome to Hangman'
 
-  until incorrect_guesses.size >= chances || remaining_count == 0
+  until incorrect_guesses.size >= chances || remaining_count.zero?
     puts "Word: #{display_word(word, correct_guesses)}"
-    puts "Incorrect guesses: #{incorrect_guesses.join{''}}"
-    puts "Chances left: #{chances-incorrect_guesses.size}"
+    puts "Incorrect guesses: #{incorrect_guesses.join { '' }}"
+    puts "Chances left: #{chances - incorrect_guesses.size}"
     puts 'Enter a letter'
     guess_letter = gets.chomp.downcase
 
-   message, remaining_count = process_guess(word, guess_letter, correct_guesses, incorrect_guesses, remaining_count)
-   puts message if message
+    message, remaining_count = process_guess(word, guess_letter, correct_guesses, incorrect_guesses, remaining_count)
+    puts message if message
   end
 
   result_message = check_game_result(word, remaining_count)
   puts result_message
-
 end
 
 play_hangman
