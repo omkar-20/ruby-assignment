@@ -11,9 +11,8 @@ end
  
 
 def check_game_result(word, remaining_count)
-  if remaining_count == 0 
-    return "You guessed the word '#{word}' correctly"
-  end
+  
+  return "You guessed the word '#{word}' correctly" if remaining_count == 0 
   
   return "Better luck next time, the word was '#{word}'"
 end
@@ -38,13 +37,10 @@ def already_guess?(guess_letter, correct_guesses, incorrect_guesses)
 end
 
 def process_guess(word, guess_letter, correct_guesses, incorrect_guesses, remaining_count)
-  if invalid_guess?(guess_letter) 
-    return ['Invalid Input', remaining_count]
-  end
-
-  if already_guess?(guess_letter, correct_guesses, incorrect_guesses) 
-    return ['You already guessed the letter', remaining_count]
-  end
+  
+  return ['Invalid Input', remaining_count] if invalid_guess?(guess_letter) 
+  
+  return ['You already guessed the letter', remaining_count] if already_guess?(guess_letter, correct_guesses, incorrect_guesses) 
   
   remaining_count = update_guesses(word, guess_letter, correct_guesses, incorrect_guesses, remaining_count)
   [nil, remaining_count]
