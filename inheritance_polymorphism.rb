@@ -14,7 +14,6 @@ class Organization
   end
 end
 
-
 class BusinessUnit < Organization
   def initialize(name, employees, location, founded, department)
     super(name, employees, location, founded)
@@ -22,7 +21,6 @@ class BusinessUnit < Organization
   end
 
   def print_name
-    self.name1 = "BU: #{name1}"
     puts name1
   end
 
@@ -35,5 +33,3 @@ business_unit = BusinessUnit.new('Josh Software', '300', 'Pune', '2007', 'Data E
 puts business_unit.employees
 puts business_unit.department
 puts business_unit.print_name
-
-

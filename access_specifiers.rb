@@ -5,14 +5,13 @@ class Rectangle
   end
 
   def calculate_area
-    area = @length * @width
-    return area
+    @length * @width
   end
 
   private
+  
   def calculate_perimeter
-    perimeter = 2 * (@length + @width)
-    return perimeter
+    2 * (@length + @width)
   end
 end
 
