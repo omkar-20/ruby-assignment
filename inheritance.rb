@@ -25,7 +25,6 @@ end
 # super in inheritance
 
 class Test1
-
   def display a=0, b=0
     puts "Parent class, 1st argument: #{a}, 2nd argument: #{b}"
   end
