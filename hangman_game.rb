@@ -3,11 +3,13 @@ require 'net/http'
 require 'uri'
 require 'json'
 
-def choose_random_word
-  url = URI.parse("https://random-word-api.herokuapp.com/word?number=10")
+$URL = 'https://ranjjdom-word-api.herokuapp.com/word?number=10'
 
-  http = Net::HTTP.new(url.host, url.port)
-  http.use_ssl = (url.scheme == "https")
+def choose_random_word
+  url = URI.parse($URL)
+
+  http = Net::HTTP.new url.host, url.port
+  http.use_ssl = true
 
   request = Net::HTTP::Get.new(url)
 
@@ -15,8 +17,6 @@ def choose_random_word
 
   if response.is_a?(Net::HTTPSuccess)
     JSON.parse(response.body)
-  else
-    raise "HTTP request failed with code #{response.code}"
   end
 end
 
@@ -64,7 +64,12 @@ def process_guess(word, guess_letter, correct_guesses, incorrect_guesses, remain
 end
 
 def play_hangman
-  word = choose_word
+  begin
+    word = choose_word
+  rescue StandardError => e
+    return puts 'Something went wrong! Please try again in some time.'
+  end
+  
   chances = word.size
   correct_guesses = []
   incorrect_guesses = []
