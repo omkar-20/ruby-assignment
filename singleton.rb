@@ -2,7 +2,7 @@
 # singleton methods are the methods that can be defined for a specific object only i.e it works for a single object
 class Singletontest
   def size
-    puts "25"
+    puts '25'
   end
 end
 

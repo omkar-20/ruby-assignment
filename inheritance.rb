@@ -1,6 +1,6 @@
 class Ruby
   def initialize
-    puts "Superclass"
+    puts 'Superclass'
   end
 
   def super_method
@@ -10,10 +10,11 @@ end
 
 class Inheritance < Ruby
   def initialize
-    puts "sub class"
+    puts 'sub class'
   end
+
   def super_method
-    puts "sub class method"
+    puts 'sub class method'
   end
 end
 
@@ -25,22 +26,22 @@ end
 # super in inheritance
 
 class Test1
-  def display a=0, b=0
+  def display (a=0, b=0)
     puts "Parent class, 1st argument: #{a}, 2nd argument: #{b}"
   end
 end
 
 class Test2 < Test1
-  def display a, b
+  def display (a, b)
     super
 
-    super a
+    super (a)
 
-    super a, b
+    super (a, b)
 
     super()
 
-    puts "this is subclass"
+    puts 'this is subclass'
   end
 end
 
@@ -88,6 +89,7 @@ class Cat < Mammal
   def initialize(name)
     puts name
   end
+
   def speak
     puts 'Meow'
   end
